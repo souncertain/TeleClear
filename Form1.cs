@@ -12,6 +12,7 @@ using TL;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Diagnostics;
 using System.Threading;
+using configApi;
 
 namespace TeleClear2
 {
@@ -42,6 +43,7 @@ namespace TeleClear2
                 label2.Text = what + ':';
                 textBox2.Text = "";
                 label2.Visible = textBox2.Visible = button2.Visible = true;
+                if (label2.Text == "password:") textBox2.UseSystemPasswordChar = true;
                 textBox2.Focus();
                 return;
             }
@@ -58,9 +60,10 @@ namespace TeleClear2
         {
             try
             {
+                
                 button1.Enabled = false;
                 _info = textBox1.Text;
-                _client = new WTelegram.Client(22034282, "50fe24f54e972eb9cad59b92cad750e8");
+                _client = new WTelegram.Client(config.appId, config.hash);
                 await Login(_info);
             }
             catch (Exception ex)
