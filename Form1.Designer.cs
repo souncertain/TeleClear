@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -43,6 +44,7 @@
             // 
             // textBox1
             // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.textBox1.Location = new System.Drawing.Point(45, 72);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(158, 26);
@@ -62,6 +64,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label2.Location = new System.Drawing.Point(248, 72);
             this.label2.Name = "label2";
@@ -70,30 +73,33 @@
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.button1.Location = new System.Drawing.Point(45, 119);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(158, 39);
             this.button1.TabIndex = 5;
             this.button1.Text = "SendCode";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.button2.Location = new System.Drawing.Point(404, 119);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(158, 39);
             this.button2.TabIndex = 6;
             this.button2.Text = "Confirm";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label3.Location = new System.Drawing.Point(40, 172);
             this.label3.Name = "label3";
@@ -104,18 +110,20 @@
             // 
             // button3
             // 
+            this.button3.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.button3.Location = new System.Drawing.Point(45, 258);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(203, 39);
             this.button3.TabIndex = 9;
             this.button3.Text = "LeaveChannels";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Visible = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // textBox3
             // 
+            this.textBox3.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.textBox3.Location = new System.Drawing.Point(45, 214);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(158, 26);
@@ -124,6 +132,7 @@
             // 
             // textBox2
             // 
+            this.textBox2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.textBox2.Location = new System.Drawing.Point(404, 72);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(158, 26);
@@ -132,6 +141,7 @@
             // 
             // listBox1
             // 
+            this.listBox1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 20;
             this.listBox1.Location = new System.Drawing.Point(316, 214);
@@ -142,13 +152,14 @@
             // 
             // button4
             // 
+            this.button4.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.button4.Location = new System.Drawing.Point(45, 327);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(203, 39);
             this.button4.TabIndex = 13;
             this.button4.Text = "Stop";
-            this.button4.UseVisualStyleBackColor = true;
+            this.button4.UseVisualStyleBackColor = false;
             this.button4.Visible = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -156,6 +167,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.listBox1);
@@ -168,6 +181,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "TeleClear";
             this.ResumeLayout(false);

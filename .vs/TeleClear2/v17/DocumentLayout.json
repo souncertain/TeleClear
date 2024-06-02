@@ -3,15 +3,15 @@
   "WorkspaceRootPath": "D:\\Visual Studio projects\\TeleClear2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B59A0B48-77E0-4B4D-B7CC-783C28220140}|TeleClear2.csproj|D:\\Visual Studio projects\\TeleClear2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{B59A0B48-77E0-4B4D-B7CC-783C28220140}|TeleClear2.csproj|d:\\visual studio projects\\teleclear2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{B59A0B48-77E0-4B4D-B7CC-783C28220140}|TeleClear2.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B59A0B48-77E0-4B4D-B7CC-783C28220140}|TeleClear2.csproj|d:\\visual studio projects\\teleclear2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B59A0B48-77E0-4B4D-B7CC-783C28220140}|TeleClear2.csproj|D:\\Visual Studio projects\\TeleClear2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B59A0B48-77E0-4B4D-B7CC-783C28220140}|TeleClear2.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B59A0B48-77E0-4B4D-B7CC-783C28220140}|TeleClear2.csproj|d:\\visual studio projects\\teleclear2\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B59A0B48-77E0-4B4D-B7CC-783C28220140}|TeleClear2.csproj|D:\\Visual Studio projects\\TeleClear2\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B59A0B48-77E0-4B4D-B7CC-783C28220140}|TeleClear2.csproj|solutionrelative:config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -38,8 +38,7 @@
               "RelativeToolTip": "config.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-02T21:54:18.796Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-02T21:54:18.796Z"
             },
             {
               "$type": "Document",
