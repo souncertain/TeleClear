@@ -46,20 +46,14 @@ namespace TeleClear2
             if (what != null)
             {
                 label2.Text = what + ':';
-                textBox2.Text = "";
-                label2.Visible = textBox2.Visible = button2.Visible = true;
-                if (label2.Text == "password:") textBox2.UseSystemPasswordChar = true;
-                textBox2.Focus();
+                codeAndPasswordTextBox.Text = "";
+                label2.Visible = codeAndPasswordTextBox.Visible = buttonToEnterCodeAndPassword.Visible = true;
+                if (label2.Text == "password:") codeAndPasswordTextBox.UseSystemPasswordChar = true;
+                codeAndPasswordTextBox.Focus();
                 return;
             }
-            textBox3.Visible = label3.Visible = button3.Visible = listBox1.Visible = button4.Visible = true;
+            autoScroll.Visible = unreadMessagesTextBox.Visible = label3.Visible = leaveChannelsButton.Visible = listBox1.Visible = stopButton.Visible = true;
             listBox1.Items.Add($"Now we are connected as {_client.User}");
-        }
-
-        //Method to change the text (what we need to enter right now) in login 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         //Method to send code with a number of user
@@ -68,8 +62,8 @@ namespace TeleClear2
             try
             {
                 
-                button1.Enabled = false;
-                _WhatWeNeedToLogin = textBox1.Text;
+                buttonToSendCode.Enabled = false;
+                _WhatWeNeedToLogin = phoneTextBox.Text;
                 _client = new WTelegram.Client(config.appId, config.hash);
                 await Login(_WhatWeNeedToLogin);
             }
@@ -82,8 +76,8 @@ namespace TeleClear2
         //Method to enter code from telegram and password
         private async void button2_Click_1(object sender, EventArgs e)
         {
-            label2.Visible = textBox2.Visible = button2.Visible = false;
-            await Login(textBox2.Text);
+            label2.Visible = codeAndPasswordTextBox.Visible = buttonToEnterCodeAndPassword.Visible = false;
+            await Login(codeAndPasswordTextBox.Text);
         }
 
         //Main logic to clear channels, we take all user chats 
@@ -91,6 +85,9 @@ namespace TeleClear2
         //value which user enter
         private async void button3_Click(object sender, EventArgs e)
         {
+            List<string> nameChannels = new List<string>();
+            int countOfChannels = 0;
+
             listBox1.Items.Clear();
             if(_client.User == null)
             {
@@ -101,7 +98,7 @@ namespace TeleClear2
             var chats = await _client.Messages_GetAllChats();
 
             long accessHash = 0;
-            int messageToLeave = Int32.Parse(textBox3.Text);
+            int messageToLeave = Int32.Parse(unreadMessagesTextBox.Text);
             foreach (var chat in chats.chats.Values)
             {
                 if (_stoped) break;
@@ -124,6 +121,7 @@ namespace TeleClear2
                                     unreadMessages = channelFull.unread_count;
                                     if (unreadMessages > messageToLeave)
                                     {
+                                        nameChannels.Add(chat.Title);
                                         await _client.Channels_LeaveChannel(new InputChannel(chat.ID, accessHash));
                                     }
                                 }
@@ -153,6 +151,7 @@ namespace TeleClear2
                                     {
                                         try
                                         {
+                                            nameChannels.Add(chat.Title);
                                             await _client.Channels_LeaveChannel(new InputChannel(channel.ID, channel.access_hash));
                                         }
                                         catch (Exception)
@@ -171,11 +170,21 @@ namespace TeleClear2
 
                 }
                 listBox1.Items.Add($"Checked {chat.Title}, going to next");
+                countOfChannels++;
                 Thread.Sleep(1000); //Need sleep because the TelegramApi
-                                    //has a limit of the number of requests per second
+                                    //has a limit of the number of requests per second\
+                if(autoScroll.Checked)
+                {
+                    listBox1.SelectedIndex = listBox1.Items.Count - 1;
+                    listBox1.SelectedIndex = -1;
+                }
             }
             listBox1.Items.Clear();
-            listBox1.Items.Add($"Now we are connected as {_client.User}");
+            listBox1.Items.Add($"We are checked {countOfChannels} channels and leave from:\n");
+            foreach(string chat in nameChannels)
+            {
+                listBox1.Items.Add(chat + '\n');
+            }
         }
 
         //Stop sending messages
