@@ -87,6 +87,7 @@
             // 
             // buttonToEnterCodeAndPassword
             // 
+            this.buttonToEnterCodeAndPassword.AutoSize = true;
             this.buttonToEnterCodeAndPassword.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.buttonToEnterCodeAndPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.buttonToEnterCodeAndPassword.Location = new System.Drawing.Point(466, 119);

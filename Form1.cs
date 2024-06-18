@@ -64,20 +64,45 @@ namespace TeleClear2
                 
                 buttonToSendCode.Enabled = false;
                 _WhatWeNeedToLogin = phoneTextBox.Text;
+                if(_WhatWeNeedToLogin == "")
+                {
+                    throw new Exception("Enter the phone number!");
+                }
                 _client = new WTelegram.Client(config.appId, config.hash);
                 await Login(_WhatWeNeedToLogin);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                buttonToSendCode.Enabled = true;
             }
         }
 
         //Method to enter code from telegram and password
         private async void button2_Click_1(object sender, EventArgs e)
         {
-            label2.Visible = codeAndPasswordTextBox.Visible = buttonToEnterCodeAndPassword.Visible = false;
-            await Login(codeAndPasswordTextBox.Text);
+            try
+            {
+                label2.Visible = codeAndPasswordTextBox.Visible = buttonToEnterCodeAndPassword.Visible = false;
+                string information = codeAndPasswordTextBox.Text;
+                if (information == "")
+                {
+                    if(label2.Text == "verificationCode")
+                    {
+                        throw new Exception("Enter the verification code!");
+                    }
+                    else
+                    {
+                        throw new Exception("Enter the password!");
+                    }
+                }
+                await Login(information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         //Main logic to clear channels, we take all user chats 
@@ -172,7 +197,7 @@ namespace TeleClear2
                 listBox1.Items.Add($"Checked {chat.Title}, going to next");
                 countOfChannels++;
                 Thread.Sleep(1000); //Need sleep because the TelegramApi
-                                    //has a limit of the number of requests per second\
+                                    //has a limit of the number of requests per second
                 if(autoScroll.Checked)
                 {
                     listBox1.SelectedIndex = listBox1.Items.Count - 1;
@@ -180,10 +205,17 @@ namespace TeleClear2
                 }
             }
             listBox1.Items.Clear();
-            listBox1.Items.Add($"We are checked {countOfChannels} channels and leave from:\n");
-            foreach(string chat in nameChannels)
+            if (countOfChannels == 0)
             {
-                listBox1.Items.Add(chat + '\n');
+                listBox1.Items.Add("We aren't leaved from any channel.");
+            }
+            else
+            { 
+                listBox1.Items.Add($"We are checked {countOfChannels} channels and leave from:\n");
+                foreach (string chat in nameChannels)
+                {
+                    listBox1.Items.Add(chat + '\n');
+                }
             }
         }
 
