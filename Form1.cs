@@ -39,23 +39,40 @@ namespace TeleClear2
             Properties.Settings.Default.Save();
         }
 
-        //Login Task, we take the information that we need to login and send this with TelegramAPI
-        private async Task Login(string Info)
+
+        private void showPassword_CheckedChanged(object sender, EventArgs e)
         {
-            string what = await _client.Login(Info);
+            if(showPassword.Checked)
+            {
+                codeAndPasswordTextBox.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                codeAndPasswordTextBox.UseSystemPasswordChar = true;
+            }
+        }
+
+        //Login Task, we take the information that we need to login and send this with TelegramAPI
+        private async Task Login(string Information)
+        {
+            string what = await _client.Login(Information);
             if (what != null)
             {
                 label2.Text = what + ':';
                 codeAndPasswordTextBox.Text = "";
                 label2.Visible = codeAndPasswordTextBox.Visible = buttonToEnterCodeAndPassword.Visible = true;
-                if (label2.Text == "password:") codeAndPasswordTextBox.UseSystemPasswordChar = true;
+                if (label2.Text == "password:")
+                {
+                    codeAndPasswordTextBox.UseSystemPasswordChar = true;
+                    showPassword.Visible = true;
+                }
                 codeAndPasswordTextBox.Focus();
                 return;
             }
             autoScroll.Visible = unreadMessagesTextBox.Visible = label3.Visible = leaveChannelsButton.Visible = listBox1.Visible = stopButton.Visible = true;
             listBox1.Items.Add($"Now we are connected as {_client.User}");
         }
-
+        
         //Method to send code with a number of user
         private async void button1_Click_1(object sender, EventArgs e)
         {
@@ -83,7 +100,7 @@ namespace TeleClear2
         {
             try
             {
-                label2.Visible = codeAndPasswordTextBox.Visible = buttonToEnterCodeAndPassword.Visible = false;
+                showPassword.Visible = label2.Visible = codeAndPasswordTextBox.Visible = buttonToEnterCodeAndPassword.Visible = false;
                 string information = codeAndPasswordTextBox.Text;
                 if (information == "")
                 {
@@ -100,9 +117,9 @@ namespace TeleClear2
             }
             catch (Exception ex)
             {
+                label2.Visible = codeAndPasswordTextBox.Visible = buttonToEnterCodeAndPassword.Visible = true;
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         //Main logic to clear channels, we take all user chats 
@@ -112,18 +129,32 @@ namespace TeleClear2
         {
             List<string> nameChannels = new List<string>();
             int countOfChannels = 0;
+            int messageToLeave;
 
-            listBox1.Items.Clear();
-            if(_client.User == null)
+            if (_client.User == null)
             {
                 MessageBox.Show("You must login!");
                 return;
             }
+            try
+            {
+                messageToLeave = Int32.Parse(unreadMessagesTextBox.Text);
+            }
+            catch
+            {
+                MessageBox.Show("Enter a number!");
+                return;
+            }
+            if (messageToLeave < 0)
+            {
+                MessageBox.Show("Amount of unread channels cant be negative!");
+                return;
+            }
+            listBox1.Items.Clear();
             _stoped = false;
             var chats = await _client.Messages_GetAllChats();
 
             long accessHash = 0;
-            int messageToLeave = Int32.Parse(unreadMessagesTextBox.Text);
             foreach (var chat in chats.chats.Values)
             {
                 if (_stoped) break;
