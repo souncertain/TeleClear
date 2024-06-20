@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WTelegram;
 using TL;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Diagnostics;
 using System.Threading;
 using configApi;
 
@@ -164,7 +157,7 @@ namespace TeleClear2
                 {
                     try
                     {
-                        TL.Channel channel = chats.chats.Values.ToList().First(x => x.ID == chat.ID) as TL.Channel;
+                        Channel channel = chats.chats.Values.ToList().First(x => x.ID == chat.ID) as TL.Channel;
                         if (channel != null && channel.IsActive)
                         {
                             accessHash = channel.access_hash;
