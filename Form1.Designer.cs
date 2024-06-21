@@ -42,6 +42,7 @@
             this.stopButton = new System.Windows.Forms.Button();
             this.autoScroll = new System.Windows.Forms.CheckBox();
             this.showPassword = new System.Windows.Forms.CheckBox();
+            this.buttonToLeaveAccount = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // phoneTextBox
@@ -82,14 +83,14 @@
             // 
             this.buttonToSendCode.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.buttonToSendCode.Font = new System.Drawing.Font("Verdana", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonToSendCode.Location = new System.Drawing.Point(70, 155);
+            this.buttonToSendCode.Location = new System.Drawing.Point(70, 150);
             this.buttonToSendCode.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.buttonToSendCode.Name = "buttonToSendCode";
             this.buttonToSendCode.Size = new System.Drawing.Size(246, 51);
             this.buttonToSendCode.TabIndex = 5;
             this.buttonToSendCode.Text = "SendCode";
             this.buttonToSendCode.UseVisualStyleBackColor = false;
-            this.buttonToSendCode.Click += new System.EventHandler(this.button1_Click_1);
+            this.buttonToSendCode.Click += new System.EventHandler(this.buttonSendCode_Click);
             // 
             // buttonToEnterCodeAndPassword
             // 
@@ -104,7 +105,7 @@
             this.buttonToEnterCodeAndPassword.Text = "Confirm";
             this.buttonToEnterCodeAndPassword.UseVisualStyleBackColor = false;
             this.buttonToEnterCodeAndPassword.Visible = false;
-            this.buttonToEnterCodeAndPassword.Click += new System.EventHandler(this.button2_Click_1);
+            this.buttonToEnterCodeAndPassword.Click += new System.EventHandler(this.buttonEnterCodeAndPassword_Click);
             // 
             // label3
             // 
@@ -123,7 +124,7 @@
             // 
             this.leaveChannelsButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.leaveChannelsButton.Font = new System.Drawing.Font("Verdana", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.leaveChannelsButton.Location = new System.Drawing.Point(70, 335);
+            this.leaveChannelsButton.Location = new System.Drawing.Point(70, 349);
             this.leaveChannelsButton.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.leaveChannelsButton.Name = "leaveChannelsButton";
             this.leaveChannelsButton.Size = new System.Drawing.Size(316, 51);
@@ -131,7 +132,7 @@
             this.leaveChannelsButton.Text = "LeaveChannels";
             this.leaveChannelsButton.UseVisualStyleBackColor = false;
             this.leaveChannelsButton.Visible = false;
-            this.leaveChannelsButton.Click += new System.EventHandler(this.button3_Click);
+            this.leaveChannelsButton.Click += new System.EventHandler(this.buttonLeaveChannels_Click);
             // 
             // unreadMessagesTextBox
             // 
@@ -180,7 +181,7 @@
             this.stopButton.Text = "Stop";
             this.stopButton.UseVisualStyleBackColor = false;
             this.stopButton.Visible = false;
-            this.stopButton.Click += new System.EventHandler(this.button4_Click);
+            this.stopButton.Click += new System.EventHandler(this.buttonStopLeaveChannels_Click);
             // 
             // autoScroll
             // 
@@ -211,13 +212,28 @@
             this.showPassword.Visible = false;
             this.showPassword.CheckedChanged += new System.EventHandler(this.showPassword_CheckedChanged);
             // 
+            // buttonToLeaveAccount
+            // 
+            this.buttonToLeaveAccount.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.buttonToLeaveAccount.Font = new System.Drawing.Font("Verdana", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonToLeaveAccount.Location = new System.Drawing.Point(392, 150);
+            this.buttonToLeaveAccount.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.buttonToLeaveAccount.Name = "buttonToLeaveAccount";
+            this.buttonToLeaveAccount.Size = new System.Drawing.Size(246, 51);
+            this.buttonToLeaveAccount.TabIndex = 16;
+            this.buttonToLeaveAccount.Text = "LeaveAccount";
+            this.buttonToLeaveAccount.UseVisualStyleBackColor = false;
+            this.buttonToLeaveAccount.Visible = false;
+            this.buttonToLeaveAccount.Click += new System.EventHandler(this.buttonToLeaveAccount_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(1279, 586);
+            this.ClientSize = new System.Drawing.Size(1180, 566);
+            this.Controls.Add(this.buttonToLeaveAccount);
             this.Controls.Add(this.showPassword);
             this.Controls.Add(this.autoScroll);
             this.Controls.Add(this.stopButton);
@@ -232,6 +248,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.phoneTextBox);
             this.Font = new System.Drawing.Font("Verdana", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "Form1";
@@ -256,6 +273,7 @@
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.CheckBox autoScroll;
         private System.Windows.Forms.CheckBox showPassword;
+        private System.Windows.Forms.Button buttonToLeaveAccount;
     }
 }
 

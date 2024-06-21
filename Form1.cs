@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using TL;
 using System.Threading;
 using configApi;
+using System.Drawing;
 
 //Created by souncertain
 
@@ -32,7 +33,7 @@ namespace TeleClear2
             Properties.Settings.Default.Save();
         }
 
-
+        //CheckBox to show or hide password
         private void showPassword_CheckedChanged(object sender, EventArgs e)
         {
             if(showPassword.Checked)
@@ -62,12 +63,12 @@ namespace TeleClear2
                 codeAndPasswordTextBox.Focus();
                 return;
             }
-            autoScroll.Visible = unreadMessagesTextBox.Visible = label3.Visible = leaveChannelsButton.Visible = listBox1.Visible = stopButton.Visible = true;
+            buttonToLeaveAccount.Visible = autoScroll.Visible = unreadMessagesTextBox.Visible = label3.Visible = leaveChannelsButton.Visible = listBox1.Visible = stopButton.Visible = true;
             listBox1.Items.Add($"Now we are connected as {_client.User}");
         }
         
         //Method to send code with a number of user
-        private async void button1_Click_1(object sender, EventArgs e)
+        private async void buttonSendCode_Click(object sender, EventArgs e)
         {
             try
             {
@@ -78,7 +79,7 @@ namespace TeleClear2
                 {
                     throw new Exception("Enter the phone number!");
                 }
-                _client = new WTelegram.Client(config.appId, config.hash);
+                _client = new WTelegram.Client(config.appId, config.hash, null);
                 await Login(_WhatWeNeedToLogin);
             }
             catch (Exception ex)
@@ -89,7 +90,7 @@ namespace TeleClear2
         }
 
         //Method to enter code from telegram and password
-        private async void button2_Click_1(object sender, EventArgs e)
+        private async void buttonEnterCodeAndPassword_Click(object sender, EventArgs e)
         {
             try
             {
@@ -118,7 +119,7 @@ namespace TeleClear2
         //Main logic to clear channels, we take all user chats 
         //and find where the amount of unread messages more than
         //value which user enter
-        private async void button3_Click(object sender, EventArgs e)
+        private async void buttonLeaveChannels_Click(object sender, EventArgs e)
         {
             List<string> nameChannels = new List<string>();
             int countOfChannels = 0;
@@ -244,9 +245,19 @@ namespace TeleClear2
         }
 
         //Stop sending messages
-        private void button4_Click(object sender, EventArgs e)
+        private void buttonStopLeaveChannels_Click(object sender, EventArgs e)
         {
             _stoped = true;
+        }
+
+        //Leave from your account
+        private void buttonToLeaveAccount_Click(object sender, EventArgs e)
+        {
+            _client?.Dispose();
+            buttonToLeaveAccount.Visible = autoScroll.Visible = unreadMessagesTextBox.Visible = label3.Visible = leaveChannelsButton.Visible = listBox1.Visible = stopButton.Visible = false;
+            listBox1.Items.Clear();
+            buttonToSendCode.Enabled = true;
+
         }
     }
 }
