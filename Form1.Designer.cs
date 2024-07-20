@@ -43,6 +43,10 @@
             this.autoScroll = new System.Windows.Forms.CheckBox();
             this.showPassword = new System.Windows.Forms.CheckBox();
             this.buttonToLeaveAccount = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.apiIdTextBox = new System.Windows.Forms.TextBox();
+            this.apiHashTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // phoneTextBox
@@ -226,6 +230,40 @@
             this.buttonToLeaveAccount.Visible = false;
             this.buttonToLeaveAccount.Click += new System.EventHandler(this.buttonToLeaveAccount_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(535, 31);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(69, 26);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "apiId";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(776, 31);
+            this.label5.Name = "label_5";
+            this.label5.Size = new System.Drawing.Size(100, 26);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "apiHash";
+            // 
+            // apiIdTextBox
+            // 
+            this.apiIdTextBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.apiIdTextBox.Location = new System.Drawing.Point(628, 31);
+            this.apiIdTextBox.Name = "apiIdTextBox";
+            this.apiIdTextBox.Size = new System.Drawing.Size(122, 34);
+            this.apiIdTextBox.TabIndex = 19;
+            // 
+            // apiHashTextBox
+            // 
+            this.apiHashTextBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.apiHashTextBox.Location = new System.Drawing.Point(896, 31);
+            this.apiHashTextBox.Name = "apiHashTextBox";
+            this.apiHashTextBox.Size = new System.Drawing.Size(248, 34);
+            this.apiHashTextBox.TabIndex = 20;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 26F);
@@ -233,6 +271,10 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1180, 566);
+            this.Controls.Add(this.apiHashTextBox);
+            this.Controls.Add(this.apiIdTextBox);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.buttonToLeaveAccount);
             this.Controls.Add(this.showPassword);
             this.Controls.Add(this.autoScroll);
@@ -275,6 +317,10 @@
         private System.Windows.Forms.CheckBox autoScroll;
         private System.Windows.Forms.CheckBox showPassword;
         private System.Windows.Forms.Button buttonToLeaveAccount;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox apiIdTextBox;
+        private System.Windows.Forms.TextBox apiHashTextBox;
     }
 }
 

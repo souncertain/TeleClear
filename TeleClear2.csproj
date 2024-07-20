@@ -95,8 +95,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Auth.cs" />
-    <Compile Include="config.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
