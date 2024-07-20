@@ -7,4 +7,4 @@ This is screenshot how the application looks. To use it you need to recive your 
 You authorize with your telegram account.
 ![Снимок экрана 2024-07-17 172223](https://github.com/user-attachments/assets/7b564245-2d2d-4b26-92dd-30f5982676d4)
 Next you will see this. You need to click API development tools and fill out the form to create your own user-bot. Than you will recive your apiId and apiHash.
-TO INSTALL THE APP, INSTALL RELEASE.RAR ZIPFILE
+TO INSTALL THE APP, INSTALL bin\RELEASE.RAR ZIPFILE.
