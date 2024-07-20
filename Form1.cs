@@ -75,11 +75,11 @@ namespace TeleClear2
             {
                 if(apiIdTextBox.Text == "" || apiHashTextBox.Text == "")
                 {
-                    throw new Exception("Enter a data!");
+                    throw new Exception("Enter a data.");
                 }
                 if(!Int32.TryParse(apiIdTextBox.Text, out _apiId))
                 {
-                    throw new Exception("Enter a valid data!");
+                    throw new Exception("Enter a valid data.");
                 }
                 else
                 {

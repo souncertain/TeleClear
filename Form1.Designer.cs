@@ -243,7 +243,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(776, 31);
-            this.label5.Name = "label5";
+            this.label5.Name = "label_5";
             this.label5.Size = new System.Drawing.Size(100, 26);
             this.label5.TabIndex = 18;
             this.label5.Text = "apiHash";
