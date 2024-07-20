@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TL;
 using System.Threading;
-using configApi;
 using System.Drawing;
 
 //Created by souncertain
@@ -20,6 +19,8 @@ namespace TeleClear2
         private static bool _stoped = false;
         //Telegram Client
         private WTelegram.Client _client;
+        private int _apiId;
+        private string _apiHash;
 
         public Form1()
         {
@@ -72,6 +73,28 @@ namespace TeleClear2
         {
             try
             {
+                if(apiIdTextBox.Text == "" || apiHashTextBox.Text == "")
+                {
+                    throw new Exception("Enter a data!");
+                }
+                if(!Int32.TryParse(apiIdTextBox.Text, out _apiId))
+                {
+                    throw new Exception("Enter a valid data!");
+                }
+                else
+                {
+
+                }
+                _apiHash = apiHashTextBox.Text;
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                buttonToSendCode.Enabled = true;
+            }
+            try
+            {
                 
                 buttonToSendCode.Enabled = false;
                 _WhatWeNeedToLogin = phoneTextBox.Text;
@@ -79,7 +102,7 @@ namespace TeleClear2
                 {
                     throw new Exception("Enter the phone number!");
                 }
-                _client = new WTelegram.Client(config.appId, config.hash, null);
+                _client = new WTelegram.Client(_apiId, _apiHash, null);
                 await Login(_WhatWeNeedToLogin);
             }
             catch (Exception ex)
