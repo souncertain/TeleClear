@@ -1,6 +1,6 @@
 ﻿namespace TeleClear2
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -28,25 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.phoneTextBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.EnterNumberLabel = new System.Windows.Forms.Label();
+            this.CurrentStepLabel = new System.Windows.Forms.Label();
             this.buttonToSendCode = new System.Windows.Forms.Button();
             this.buttonToEnterCodeAndPassword = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.EnterAmountLabel = new System.Windows.Forms.Label();
             this.leaveChannelsButton = new System.Windows.Forms.Button();
             this.unreadMessagesTextBox = new System.Windows.Forms.TextBox();
             this.codeAndPasswordTextBox = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.channelsListBox = new System.Windows.Forms.ListBox();
             this.stopButton = new System.Windows.Forms.Button();
             this.autoScroll = new System.Windows.Forms.CheckBox();
             this.showPassword = new System.Windows.Forms.CheckBox();
             this.buttonToLeaveAccount = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.apiIdTextBox = new System.Windows.Forms.TextBox();
-            this.apiHashTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // phoneTextBox
@@ -59,29 +55,29 @@
             this.phoneTextBox.Size = new System.Drawing.Size(244, 34);
             this.phoneTextBox.TabIndex = 0;
             // 
-            // label1
+            // EnterNumberLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Verdana", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(62, 31);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(410, 26);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Enter a phone number to send code";
+            this.EnterNumberLabel.AutoSize = true;
+            this.EnterNumberLabel.Font = new System.Drawing.Font("Verdana", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EnterNumberLabel.Location = new System.Drawing.Point(62, 31);
+            this.EnterNumberLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.EnterNumberLabel.Name = "EnterNumberLabel";
+            this.EnterNumberLabel.Size = new System.Drawing.Size(410, 26);
+            this.EnterNumberLabel.TabIndex = 3;
+            this.EnterNumberLabel.Text = "Enter a phone number to send code";
             // 
-            // label2
+            // CurrentStepLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label2.Font = new System.Drawing.Font("Verdana", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(387, 94);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(188, 26);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "verificationCode";
-            this.label2.Visible = false;
+            this.CurrentStepLabel.AutoSize = true;
+            this.CurrentStepLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.CurrentStepLabel.Font = new System.Drawing.Font("Verdana", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CurrentStepLabel.Location = new System.Drawing.Point(387, 94);
+            this.CurrentStepLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.CurrentStepLabel.Name = "CurrentStepLabel";
+            this.CurrentStepLabel.Size = new System.Drawing.Size(188, 26);
+            this.CurrentStepLabel.TabIndex = 4;
+            this.CurrentStepLabel.Text = "verificationCode";
+            this.CurrentStepLabel.Visible = false;
             // 
             // buttonToSendCode
             // 
@@ -111,18 +107,18 @@
             this.buttonToEnterCodeAndPassword.Visible = false;
             this.buttonToEnterCodeAndPassword.Click += new System.EventHandler(this.buttonEnterCodeAndPassword_Click);
             // 
-            // label3
+            // EnterAmountLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label3.Font = new System.Drawing.Font("Verdana", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(62, 224);
-            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(611, 26);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Enter the amount of unread messages into a channels";
-            this.label3.Visible = false;
+            this.EnterAmountLabel.AutoSize = true;
+            this.EnterAmountLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.EnterAmountLabel.Font = new System.Drawing.Font("Verdana", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EnterAmountLabel.Location = new System.Drawing.Point(62, 224);
+            this.EnterAmountLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.EnterAmountLabel.Name = "EnterAmountLabel";
+            this.EnterAmountLabel.Size = new System.Drawing.Size(611, 26);
+            this.EnterAmountLabel.TabIndex = 7;
+            this.EnterAmountLabel.Text = "Enter the amount of unread messages into a channels";
+            this.EnterAmountLabel.Visible = false;
             // 
             // leaveChannelsButton
             // 
@@ -160,18 +156,18 @@
             this.codeAndPasswordTextBox.TabIndex = 11;
             this.codeAndPasswordTextBox.Visible = false;
             // 
-            // listBox1
+            // channelsListBox
             // 
-            this.listBox1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.listBox1.Font = new System.Drawing.Font("Verdana", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 26;
-            this.listBox1.Location = new System.Drawing.Point(481, 279);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(663, 264);
-            this.listBox1.TabIndex = 12;
-            this.listBox1.Visible = false;
+            this.channelsListBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.channelsListBox.Font = new System.Drawing.Font("Verdana", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.channelsListBox.FormattingEnabled = true;
+            this.channelsListBox.ItemHeight = 26;
+            this.channelsListBox.Location = new System.Drawing.Point(481, 279);
+            this.channelsListBox.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.channelsListBox.Name = "channelsListBox";
+            this.channelsListBox.Size = new System.Drawing.Size(663, 264);
+            this.channelsListBox.TabIndex = 12;
+            this.channelsListBox.Visible = false;
             // 
             // stopButton
             // 
@@ -230,71 +226,33 @@
             this.buttonToLeaveAccount.Visible = false;
             this.buttonToLeaveAccount.Click += new System.EventHandler(this.buttonToLeaveAccount_Click);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(535, 31);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(69, 26);
-            this.label4.TabIndex = 17;
-            this.label4.Text = "apiId";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(776, 31);
-            this.label5.Name = "label_5";
-            this.label5.Size = new System.Drawing.Size(100, 26);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "apiHash";
-            // 
-            // apiIdTextBox
-            // 
-            this.apiIdTextBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.apiIdTextBox.Location = new System.Drawing.Point(628, 31);
-            this.apiIdTextBox.Name = "apiIdTextBox";
-            this.apiIdTextBox.Size = new System.Drawing.Size(122, 34);
-            this.apiIdTextBox.TabIndex = 19;
-            // 
-            // apiHashTextBox
-            // 
-            this.apiHashTextBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.apiHashTextBox.Location = new System.Drawing.Point(896, 31);
-            this.apiHashTextBox.Name = "apiHashTextBox";
-            this.apiHashTextBox.Size = new System.Drawing.Size(248, 34);
-            this.apiHashTextBox.TabIndex = 20;
-            // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1180, 566);
-            this.Controls.Add(this.apiHashTextBox);
-            this.Controls.Add(this.apiIdTextBox);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.buttonToLeaveAccount);
             this.Controls.Add(this.showPassword);
             this.Controls.Add(this.autoScroll);
             this.Controls.Add(this.stopButton);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.channelsListBox);
             this.Controls.Add(this.codeAndPasswordTextBox);
             this.Controls.Add(this.unreadMessagesTextBox);
             this.Controls.Add(this.leaveChannelsButton);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.EnterAmountLabel);
             this.Controls.Add(this.buttonToEnterCodeAndPassword);
             this.Controls.Add(this.buttonToSendCode);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.CurrentStepLabel);
+            this.Controls.Add(this.EnterNumberLabel);
             this.Controls.Add(this.phoneTextBox);
             this.Font = new System.Drawing.Font("Verdana", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "TeleClear";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -304,23 +262,19 @@
         #endregion
 
         private System.Windows.Forms.TextBox phoneTextBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label EnterNumberLabel;
+        private System.Windows.Forms.Label CurrentStepLabel;
         private System.Windows.Forms.Button buttonToSendCode;
         private System.Windows.Forms.Button buttonToEnterCodeAndPassword;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label EnterAmountLabel;
         private System.Windows.Forms.Button leaveChannelsButton;
         private System.Windows.Forms.TextBox unreadMessagesTextBox;
         private System.Windows.Forms.TextBox codeAndPasswordTextBox;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox channelsListBox;
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.CheckBox autoScroll;
         private System.Windows.Forms.CheckBox showPassword;
         private System.Windows.Forms.Button buttonToLeaveAccount;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox apiIdTextBox;
-        private System.Windows.Forms.TextBox apiHashTextBox;
     }
 }
 
