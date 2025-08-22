@@ -1,30 +1,32 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TL;
-using System.Threading;
-using System.Drawing;
 
 //Created by souncertain
 
 namespace TeleClear2
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         //variable stores info that the user enters
-        private static string _WhatWeNeedToLogin = "";
+        private static string _pendingLoginInput = "";
         //variable stores condithion to stop leave channels
-        private static bool _stoped = false;
+        private static bool _stopRequested = false;
         //Telegram Client
         private WTelegram.Client _client;
         private int _apiId;
         private string _apiHash;
 
-        public Form1()
+        public MainForm(IConfigurationRoot config)
         {
             InitializeComponent();
+            Int32.TryParse(config.GetSection("Telegram:ApiId").Value, out _apiId);
+            _apiHash = config.GetSection("Telegram:ApiHash").Value;
         }
 
         //Save settings and frees up the client memory
@@ -37,26 +39,19 @@ namespace TeleClear2
         //CheckBox to show or hide password
         private void showPassword_CheckedChanged(object sender, EventArgs e)
         {
-            if(showPassword.Checked)
-            {
-                codeAndPasswordTextBox.UseSystemPasswordChar = false;
-            }
-            else
-            {
-                codeAndPasswordTextBox.UseSystemPasswordChar = true;
-            }
+            codeAndPasswordTextBox.UseSystemPasswordChar = !showPassword.Checked;
         }
 
         //Login Task, we take the information that we need to login and send this with TelegramAPI
         private async Task Login(string Information)
         {
-            string what = await _client.Login(Information);
-            if (what != null)
+            string nextStep = await _client.Login(Information);
+            if (nextStep != null)
             {
-                label2.Text = what + ':';
+                CurrentStepLabel.Text = nextStep + ':';
                 codeAndPasswordTextBox.Text = "";
-                label2.Visible = codeAndPasswordTextBox.Visible = buttonToEnterCodeAndPassword.Visible = true;
-                if (label2.Text == "password:")
+                CurrentStepLabel.Visible = codeAndPasswordTextBox.Visible = buttonToEnterCodeAndPassword.Visible = true;
+                if (CurrentStepLabel.Text == "password:")
                 {
                     codeAndPasswordTextBox.UseSystemPasswordChar = true;
                     showPassword.Visible = true;
@@ -64,46 +59,23 @@ namespace TeleClear2
                 codeAndPasswordTextBox.Focus();
                 return;
             }
-            buttonToLeaveAccount.Visible = autoScroll.Visible = unreadMessagesTextBox.Visible = label3.Visible = leaveChannelsButton.Visible = listBox1.Visible = stopButton.Visible = true;
-            listBox1.Items.Add($"Now we are connected as {_client.User}");
+            buttonToLeaveAccount.Visible = autoScroll.Visible = unreadMessagesTextBox.Visible = EnterAmountLabel.Visible = leaveChannelsButton.Visible = channelsListBox.Visible = stopButton.Visible = true;
+            channelsListBox.Items.Add($"Now we are connected as {_client.User}");
         }
         
         //Method to send code with a number of user
         private async void buttonSendCode_Click(object sender, EventArgs e)
         {
             try
-            {
-                if(apiIdTextBox.Text == "" || apiHashTextBox.Text == "")
-                {
-                    throw new Exception("Enter a data.");
-                }
-                if(!Int32.TryParse(apiIdTextBox.Text, out _apiId))
-                {
-                    throw new Exception("Enter a valid data.");
-                }
-                else
-                {
-
-                }
-                _apiHash = apiHashTextBox.Text;
-
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                buttonToSendCode.Enabled = true;
-            }
-            try
-            {
-                
+            { 
                 buttonToSendCode.Enabled = false;
-                _WhatWeNeedToLogin = phoneTextBox.Text;
-                if(_WhatWeNeedToLogin == "")
+                _pendingLoginInput = phoneTextBox.Text;
+                if(string.IsNullOrWhiteSpace(_pendingLoginInput))
                 {
                     throw new Exception("Enter the phone number!");
                 }
                 _client = new WTelegram.Client(_apiId, _apiHash, null);
-                await Login(_WhatWeNeedToLogin);
+                await Login(_pendingLoginInput);
             }
             catch (Exception ex)
             {
@@ -117,11 +89,11 @@ namespace TeleClear2
         {
             try
             {
-                showPassword.Visible = label2.Visible = codeAndPasswordTextBox.Visible = buttonToEnterCodeAndPassword.Visible = false;
-                string information = codeAndPasswordTextBox.Text;
-                if (information == "")
+                showPassword.Visible = CurrentStepLabel.Visible = codeAndPasswordTextBox.Visible = buttonToEnterCodeAndPassword.Visible = false;
+                string userInput = codeAndPasswordTextBox.Text;
+                if (string.IsNullOrWhiteSpace(userInput))
                 {
-                    if(label2.Text == "verificationCode")
+                    if (CurrentStepLabel.Text.Contains("verification"))
                     {
                         throw new Exception("Enter the verification code!");
                     }
@@ -130,11 +102,11 @@ namespace TeleClear2
                         throw new Exception("Enter the password!");
                     }
                 }
-                await Login(information);
+                await Login(userInput);
             }
             catch (Exception ex)
             {
-                label2.Visible = codeAndPasswordTextBox.Visible = buttonToEnterCodeAndPassword.Visible = true;
+                CurrentStepLabel.Visible = codeAndPasswordTextBox.Visible = buttonToEnterCodeAndPassword.Visible = true;
                 MessageBox.Show(ex.Message);
             }
         }
@@ -146,18 +118,13 @@ namespace TeleClear2
         {
             List<string> nameChannels = new List<string>();
             int countOfChannels = 0;
-            int messageToLeave;
 
             if (_client.User == null)
             {
                 MessageBox.Show("You must login!");
                 return;
             }
-            try
-            {
-                messageToLeave = Int32.Parse(unreadMessagesTextBox.Text);
-            }
-            catch
+            if(!Int32.TryParse(unreadMessagesTextBox.Text, out int messageToLeave))
             {
                 MessageBox.Show("Enter a number!");
                 return;
@@ -167,118 +134,103 @@ namespace TeleClear2
                 MessageBox.Show("Amount of unread channels cant be negative!");
                 return;
             }
-            listBox1.Items.Clear();
-            _stoped = false;
+            channelsListBox.Items.Clear();
+            _stopRequested = false;
             var chats = await _client.Messages_GetAllChats();
 
-            long accessHash = 0;
-            foreach (var chat in chats.chats.Values)
+            var chatsBase = chats.chats.Values.Where(chat => chat?.IsActive == true).ToList();
+            foreach (var chat in chatsBase)
             {
-                if (_stoped) break;
-                if(chat == null || !chat.IsActive) continue;
-                int unreadMessages = 0;
-                if (chat.IsChannel)
+                bool isLeft = false;
+                if (_stopRequested) break;
+                int unreadMessages = await GetUnreadCountAsync(chat);
+                
+                if(unreadMessages > messageToLeave && chat.IsChannel)
                 {
                     try
                     {
-                        Channel channel = chats.chats.Values.ToList().First(x => x.ID == chat.ID) as TL.Channel;
-                        if (channel != null && channel.IsActive)
+                        if(chat is Channel channel)
                         {
-                            accessHash = channel.access_hash;
-                            Messages_ChatFull fullChannel = await _client.Channels_GetFullChannel(channel);
-                            if (fullChannel != null)
-                            {
-                                ChannelFull channelFull = fullChannel.full_chat as ChannelFull;
-                                if (channelFull != null)
-                                {
-                                    unreadMessages = channelFull.unread_count;
-                                    if (unreadMessages > messageToLeave)
-                                    {
-                                        nameChannels.Add(chat.Title);
-                                        await _client.Channels_LeaveChannel(new InputChannel(chat.ID, accessHash));
-                                    }
-                                }
-                            }
+                            await _client.Channels_LeaveChannel(new InputChannel(channel.id, channel.access_hash));
+                            nameChannels.Add(channel.title);
+                            isLeft = true;
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        continue;
+                        channelsListBox.Items.Add($"Error leaving {chat.Title}: {ex.Message}");
                     }
+                }
+
+                if (isLeft)
+                {
+                    channelsListBox.Items.Add($"Checked and left from {chat.Title}, going to next");
                 }
                 else
                 {
-                    try
-                    {
-                        var FullChat = await _client.GetFullChat(chat);
-                        if (FullChat != null)
-                        {
-                            ChannelFull chatFull = FullChat.full_chat as ChannelFull;
-                            if (chatFull != null)
-                            {
-                                unreadMessages = chatFull.unread_count;
-                                if (unreadMessages > messageToLeave)
-                                {
-                                    TL.Channel channel = chat as TL.Channel;
-                                    if (channel != null && channel.IsActive)
-                                    {
-                                        try
-                                        {
-                                            nameChannels.Add(chat.Title);
-                                            await _client.Channels_LeaveChannel(new InputChannel(channel.ID, channel.access_hash));
-                                        }
-                                        catch (Exception)
-                                        {
-                                            continue;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        continue;
-                    }
-
+                    channelsListBox.Items.Add($"Checked and not left from {chat.Title}, going to next");
                 }
-                listBox1.Items.Add($"Checked {chat.Title}, going to next");
                 countOfChannels++;
-                Thread.Sleep(1000); //Need sleep because the TelegramApi
-                                    //has a limit of the number of requests per second
                 if(autoScroll.Checked)
                 {
-                    listBox1.SelectedIndex = listBox1.Items.Count - 1;
-                    listBox1.SelectedIndex = -1;
+                    channelsListBox.SelectedIndex = channelsListBox.Items.Count - 1;
+                    channelsListBox.SelectedIndex = -1;
                 }
+                await Task.Delay(1000); //Need delay because the TelegramApi
+                                        //has a limit of the number of requests per second
             }
-            listBox1.Items.Clear();
+            channelsListBox.Items.Clear();
             if (countOfChannels == 0)
             {
-                listBox1.Items.Add("We aren't leaved from any channel.");
+                channelsListBox.Items.Add("We aren't leaved from any channel.");
             }
             else
             { 
-                listBox1.Items.Add($"We are checked {countOfChannels} channels and leave from:\n");
+                channelsListBox.Items.Add($"We are checked {countOfChannels} channels and leave from:\n");
                 foreach (string chat in nameChannels)
                 {
-                    listBox1.Items.Add(chat + '\n');
+                    channelsListBox.Items.Add(chat + '\n');
                 }
             }
+        }
+        //Function to get the number of unread messages in chat
+        private async Task<int> GetUnreadCountAsync(ChatBase chat)
+        {
+            try
+            {
+                if (chat is Channel channel)
+                {
+                    var fullChannel = await _client.Channels_GetFullChannel(channel);
+                    if (fullChannel.full_chat is ChannelFull chFull)
+                        return chFull.unread_count;
+                }
+                else
+                {
+                    var fullChat = await _client.GetFullChat(chat);
+                    if (fullChat?.full_chat is ChannelFull chFull)
+                        return chFull.unread_count;
+                }
+            }
+            catch
+            {
+
+            }
+            return 0;
         }
 
         //Stop sending messages
         private void buttonStopLeaveChannels_Click(object sender, EventArgs e)
         {
-            _stoped = true;
+            _stopRequested = true;
         }
 
         //Leave from your account
         private void buttonToLeaveAccount_Click(object sender, EventArgs e)
         {
             _client?.Dispose();
-            buttonToLeaveAccount.Visible = autoScroll.Visible = unreadMessagesTextBox.Visible = label3.Visible = leaveChannelsButton.Visible = listBox1.Visible = stopButton.Visible = false;
-            listBox1.Items.Clear();
+            buttonToLeaveAccount.Visible = autoScroll.Visible = unreadMessagesTextBox.Visible = 
+                EnterAmountLabel.Visible = leaveChannelsButton.Visible = channelsListBox.Visible = stopButton.Visible = false;
+            channelsListBox.Items.Clear();
             buttonToSendCode.Enabled = true;
 
         }
