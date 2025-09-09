@@ -116,7 +116,7 @@ namespace TeleClear2
         //value which user enter
         private async void buttonLeaveChannels_Click(object sender, EventArgs e)
         {
-            List<string> nameChannels = new List<string>();
+            List<string> leftChannelsNames = new List<string>();
             int countOfChannels = 0;
 
             if (_client.User == null)
@@ -152,7 +152,7 @@ namespace TeleClear2
                         if(chat is Channel channel)
                         {
                             await _client.Channels_LeaveChannel(new InputChannel(channel.id, channel.access_hash));
-                            nameChannels.Add(channel.title);
+                            leftChannelsNames.Add(channel.title);
                             isLeft = true;
                         }
                     }
@@ -180,14 +180,14 @@ namespace TeleClear2
                                         //has a limit of the number of requests per second
             }
             channelsListBox.Items.Clear();
-            if (countOfChannels == 0)
+            if (leftChannelsNames.Count == 0)
             {
                 channelsListBox.Items.Add("We aren't leaved from any channel.");
             }
             else
             { 
                 channelsListBox.Items.Add($"We are checked {countOfChannels} channels and leave from:\n");
-                foreach (string chat in nameChannels)
+                foreach (string chat in leftChannelsNames)
                 {
                     channelsListBox.Items.Add(chat + '\n');
                 }
